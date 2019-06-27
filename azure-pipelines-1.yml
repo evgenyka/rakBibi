@@ -1,6 +1,8 @@
-# https://docs.microsoft.com/azure/devops/pipelines/languages/xcode
+trigger:
+- master
+
 pool:
-  vmImage: 'macOS-latest'
+  vmImage: 'macos-latest'
 
 variables:
   scheme: ''

@@ -32,9 +32,9 @@ steps:
     exportTeamId: $(teamId)
     exportOptions: 'specify'
     exportMethod: 'development'
-    signingOption: 'nosign'
+    #signingOption: 'nosign'
 
 - task: PublishBuildArtifacts@1
   inputs:
-    pathToPublish: '$(agent.buildDirectory)/output/$(sdk)/$(configuration)'
-    artifactName: 'app-files'
+    pathToPublish: '$(agent.buildDirectory)/output/$(sdk)/$(configuration)/rakBibi.ipa'
+    artifactName: 'rakBibi.ipa'

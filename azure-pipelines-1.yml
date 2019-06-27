@@ -34,4 +34,7 @@ steps:
     exportMethod: 'development'
     signingOption: 'nosign'
 
-
+- task: PublishBuildArtifacts@1
+  inputs:
+    pathToPublish: '$(Build.ArtifactStagingDirectory)/deploy'
+    artifactName: 'app-files'

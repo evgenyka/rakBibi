@@ -15,8 +15,13 @@ steps:
     connectionType: 'connectedServiceName'
     serviceConnection: 'MC-Demo'
     method: 'POST' # Options: OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, PATCH
-    headers: '{"Content-Type": "application/json"}' 
-    body: '{"name": "karasik@microfocus.com","password": "Welc0me11"}'
+    headers: '{
+      "Content-Type":"application/json", 
+      }'
+    body: '{
+        "name": "karasik@microfocus.com",
+        "password": "Welc0me11"
+      }'
     urlSuffix: '/rest/client/login' # Optional
     waitForCompletion: 'true' # Options: true, false
     successCriteria: 200 # Optional

@@ -5,7 +5,7 @@ pool:
   vmImage: 'macos-latest'
 
 variables:
-  scheme: ''
+  scheme: 'rakBibi'
   sdk: 'iphoneos'
   configuration: 'Release'
 
@@ -14,7 +14,6 @@ steps:
   inputs:
     sdk: '$(sdk)'
     scheme: '$(scheme)'
-    scheme: 'rakBibi'
     configuration: '$(configuration)'
     xcodeVersion: 'default' # Options: default, 10, 9, 8, specifyPath
     exportPath: '$(agent.buildDirectory)/output/$(sdk)/$(configuration)'

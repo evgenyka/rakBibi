@@ -15,20 +15,20 @@ steps:
   inputs:
     actions: 'clean build analyze archive'
     sdk: 'iphoneos'
-    scheme: 'HelloiOS'
+    scheme: 'rakBibi'
     configuration: 'Debug'
     xcWorkspacePath: '**/*.xcodeproj/project.xcworkspace'
     useXcpretty: false
-    args: '-archivePath $(agent.buildDirectory)/HelloiOS'
+    args: '-archivePath $(agent.buildDirectory)/rakBibi'
 
 - task: ArchiveFiles@2
   displayName: 'Package .xcarchive into a zip file'
   inputs:
-    rootFolderOrFile: '$(agent.buildDirectory)/HelloiOS.xcarchive/'
-    archiveFile: '$(build.artifactStagingDirectory)/HelloiOS.xcarchive.zip'
+    rootFolderOrFile: '$(agent.buildDirectory)/rakBibi.xcarchive/'
+    archiveFile: '$(build.artifactStagingDirectory)/rakBibi.xcarchive.zip'
 
 - task: PublishBuildArtifacts@1
   inputs:
-    pathToPublish: '$(build.artifactStagingDirectory)/HelloiOS.xcarchive.zip'
+    pathToPublish: '$(build.artifactStagingDirectory)/rakBibi.xcarchive.zip'
     artifactName: 'xcarchive-files'
     artifactType: 'container'

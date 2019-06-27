@@ -13,10 +13,14 @@ steps:
 - task: InvokeRESTAPI@1
   inputs:
     connectionType: 'connectedServiceName'
-    serviceConnection: 'MobileCenterDemoServer'
+    serviceConnection: 'MC-Demo'
     method: 'POST'
     headers: '{
       "Content-Type":"application/json", 
       }'
+    body: '{
+        "name": "karasik@microfocus.com",
+        "password": "Welc0me11"
+      }'
     urlSuffix: '/rest/client/login'
-    waitForCompletion: 'true'
+    waitForCompletion: 'false'

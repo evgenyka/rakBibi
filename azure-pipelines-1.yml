@@ -36,5 +36,5 @@ steps:
 
 - task: PublishBuildArtifacts@1
   inputs:
-    pathToPublish: '$(Build.ArtifactStagingDirectory)/deploy'
+    pathToPublish: '$(agent.buildDirectory)/output/$(sdk)/$(configuration)'
     artifactName: 'app-files'

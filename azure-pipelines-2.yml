@@ -1,0 +1,22 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- task: InvokeRESTAPI@1
+  inputs:
+    connectionType: 'connectedServiceName'
+    serviceConnection: 'MC-Demo'
+    method: 'POST' # Options: OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, PATCH
+    headers: '{"Content-Type": "application/json"}' 
+    body: {"name": "karasik@microfocus.com","password": "Welc0me11"}
+    urlSuffix: '/rest/client/login'# Optional
+    waitForCompletion: 'true' # Options: true, false
+    successCriteria: 200 # Optional

@@ -20,5 +20,5 @@ steps:
     exportPath: '$(agent.buildDirectory)/output/$(sdk)/$(configuration)'
     packageApp: true
     exportOptions: specify
-    exportMethod: 'development'
+    exportMethod: 'enterprise'
     exportTeamId: $(teamId)

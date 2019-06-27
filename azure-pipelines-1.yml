@@ -27,9 +27,11 @@ steps:
     configuration: '$(configuration)'
     xcodeVersion: 'default' # Options: default, 10, 9, 8, specifyPath
     exportPath: '$(agent.buildDirectory)/output/$(sdk)/$(configuration)'
+    archivePath: '$(Build.ArtifactStagingDirectory)/deploy'
     packageApp: true
     exportTeamId: $(teamId)
     exportOptions: 'specify'
     exportMethod: 'development'
     signingOption: 'nosign'
+
 

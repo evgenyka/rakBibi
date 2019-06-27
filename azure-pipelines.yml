@@ -7,7 +7,7 @@ trigger:
 - master
 
 pool:
-  vmImage: 'latest'
+  vmImage: 'macos-latest'
 
 steps:
 - task: Xcode@5
@@ -18,7 +18,7 @@ steps:
     scheme: 'HelloiOS'
     configuration: 'Debug'
     xcWorkspacePath: '**/*.xcodeproj/project.xcworkspace'
-    useXcpretty: 'false'
+    useXcpretty: false
     args: '-archivePath $(agent.buildDirectory)/HelloiOS'
 
 - task: ArchiveFiles@2

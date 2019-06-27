@@ -11,6 +11,7 @@ pool:
 
 steps:
 - task: Xcode@5
+  displayName: 'Build the app using Xcode'
   inputs:
     actions: 'build'
     scheme: 'rakBibi'
@@ -18,25 +19,15 @@ steps:
     configuration: 'Release'
     xcWorkspacePath: '**/*.xcodeproj/project.xcworkspace'
     xcodeVersion: 'default' # Options: 8, 9, 10, default, specifyPath
-    packageApp: 
-    #archivePath: # Optional
-    #exportPath: 'output/$(SDK)/$(Configuration)' # Optional
-    #exportOptions: 'auto' # Optional. Options: auto, plist, specify
-    #exportMethod: 'development' # Required when exportOptions == Specify
-    #exportTeamId: # Optional
-    #exportOptionsPlist: # Required when exportOptions == Plist
-    #exportArgs: # Optional
-    signingOption: 'nosign' # Optional. Options: nosign, default, manual, auto
-    #signingIdentity: # Optional
-    #provisioningProfileUuid: # Optional
-    #provisioningProfileName: # Optional
-    #teamId: # Optional
-    #destinationPlatformOption: 'default' # Optional. Options: default, iOS, tvOS, macOS, custom
-    #destinationPlatform: # Optional
-    #destinationTypeOption: 'simulators' # Optional. Options: simulators, devices
-    #destinationSimulators: 'iPhone 7' # Optional
-    #destinationDevices: # Optional
-    #args: # Optional
-    #workingDirectory: # Optional
-    #useXcpretty: true # Optional
-    #publishJUnitResults: # Optional
+    args: '-archivePath $(agent.buildDirectory)/rakBibi'
+- task: ArchiveFiles@2
+  displayName: 'Package .xcarchive into a zip file'
+  inputs:
+    rootFolderOrFile: '$(agent.buildDirectory)/rakBibi.xcarchive/'
+    archiveFile: '$(build.artifactStagingDirectory)/rakBibi.xcarchive.zip'
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    pathToPublish: '$(build.artifactStagingDirectory)/rakBibi.xcarchive.zip'
+    artifactName: 'xcarchive-files'
+    artifactType: 'container'

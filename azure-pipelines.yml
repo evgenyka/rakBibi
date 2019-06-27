@@ -7,30 +7,28 @@ trigger:
 - master
 
 pool:
-  vmImage: 'macos-latest'
+  vmImage: 'macOS 10.13'
 
 steps:
 - task: Xcode@5
   displayName: 'Build the app using Xcode'
   inputs:
-    actions: 'build'
     actions: 'clean build analyze archive'
     sdk: 'iphoneos'
-    scheme: 'rakBibi'
+    scheme: 'HelloiOS'
     configuration: 'Debug'
     xcWorkspacePath: '**/*.xcodeproj/project.xcworkspace'
-    exportPath: '$(agent.buildDirectory)/output/$(sdk)/$(configuration)'
-    useXcpretty: false
-    args: '-archivePath $(agent.buildDirectory)/rakBibi'
+    useXcpretty: 'false'
+    args: '-archivePath $(agent.buildDirectory)/HelloiOS'
 
 - task: ArchiveFiles@2
   displayName: 'Package .xcarchive into a zip file'
   inputs:
-    rootFolderOrFile: '$(agent.buildDirectory)/rakBibi.xcarchive/'
-    archiveFile: '$(build.artifactStagingDirectory)/rakBibi.xcarchive.zip'
+    rootFolderOrFile: '$(agent.buildDirectory)/HelloiOS.xcarchive/'
+    archiveFile: '$(build.artifactStagingDirectory)/HelloiOS.xcarchive.zip'
 
 - task: PublishBuildArtifacts@1
   inputs:
-    pathToPublish: '$(build.artifactStagingDirectory)/rakBibi.xcarchive.zip'
+    pathToPublish: '$(build.artifactStagingDirectory)/HelloiOS.xcarchive.zip'
     artifactName: 'xcarchive-files'
     artifactType: 'container'

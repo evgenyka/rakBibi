@@ -18,4 +18,4 @@ steps:
     xcodeVersion: 'default' # Options: default, 10, 9, 8, specifyPath
     exportPath: '$(agent.buildDirectory)/output/$(sdk)/$(configuration)'
     packageApp: true
-    teamId: 'M5H46J4YP8'
+    exportTeamId: 'M5H46J4YP8'

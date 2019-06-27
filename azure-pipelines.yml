@@ -18,10 +18,5 @@ steps:
     headers: '{
       "Content-Type":"application/json", 
       }'
-    body: '{
-        "name": "karasik@microfocus.com",
-        "password": "Welc0me11"
-      }'
     urlSuffix: '/rest/client/login'
-    waitForCompletion: 'false'
-    successCriteria: '200'
+    waitForCompletion: 'true'

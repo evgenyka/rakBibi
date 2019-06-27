@@ -22,4 +22,4 @@ steps:
     exportOptions: 'specify'
     #exportMethod: 'development'
     exportTeamId: $(teamId)
-    signingOption: 'manual'
+    signingOption: 'nosign'

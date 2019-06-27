@@ -18,7 +18,7 @@ steps:
     configuration: 'Release'
     xcWorkspacePath: '**/*.xcodeproj/project.xcworkspace'
     xcodeVersion: 'default' # Options: 8, 9, 10, default, specifyPath
-  packageApp: 
+    packageApp: 
     #archivePath: # Optional
     #exportPath: 'output/$(SDK)/$(Configuration)' # Optional
     #exportOptions: 'auto' # Optional. Options: auto, plist, specify

@@ -37,4 +37,4 @@ steps:
 - task: PublishBuildArtifacts@1
   inputs:
     pathToPublish: '$(agent.buildDirectory)/output/$(sdk)/$(configuration)/rakBibi.ipa'
-    artifactName: 'rakBibi.ipa'
+    artifactName: 'rakBibi'

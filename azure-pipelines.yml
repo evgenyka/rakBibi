@@ -10,25 +10,18 @@ pool:
   vmImage: 'macos-latest'
 
 steps:
-- task: Xcode@5
-  displayName: 'Build the app using Xcode'
+- task: InvokeRESTAPI@1
   inputs:
-    actions: 'clean build analyze archive'
-    sdk: 'iphoneos'
-    scheme: 'rakBibi'
-    configuration: 'Debug'
-    xcWorkspacePath: '**/*.xcodeproj/project.xcworkspace'
-    useXcpretty: false
-    args: '-archivePath $(agent.buildDirectory)/rakBibi'
-
-- task: ArchiveFiles@2
-  displayName: 'Package .xcarchive into a zip file'
-  inputs:
-    rootFolderOrFile: '$(agent.buildDirectory)/rakBibi.xcarchive/'
-    archiveFile: '$(build.artifactStagingDirectory)/rakBibi.xcarchive.zip'
-
-- task: PublishBuildArtifacts@1
-  inputs:
-    pathToPublish: '$(build.artifactStagingDirectory)/rakBibi.xcarchive.zip'
-    artifactName: 'xcarchive-files'
-    artifactType: 'container'
+    connectionType: 'connectedServiceName'
+    serviceConnection: 'MobileCenterDemoServer'
+    method: 'POST'
+    headers: '{
+      "Content-Type":"application/json", 
+      }'
+    body: '{
+        "name": "karasik@microfocus.com",
+        "password": "Welc0me11"
+      }'
+    urlSuffix: '/rest/client/login'
+    waitForCompletion: 'false'
+    successCriteria: '200'

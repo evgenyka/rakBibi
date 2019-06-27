@@ -14,13 +14,15 @@ steps:
   displayName: 'Build the app using Xcode'
   inputs:
     actions: 'build'
-    scheme: 'rakBibi'
+    actions: 'clean build analyze archive'
     sdk: 'iphoneos'
+    scheme: 'rakBibi'
     configuration: 'Debug'
     xcWorkspacePath: '**/*.xcodeproj/project.xcworkspace'
-    xcodeVersion: 'default' # Options: 8, 9, 10, default, specifyPath
     exportPath: '$(agent.buildDirectory)/output/$(sdk)/$(configuration)'
+    useXcpretty: false
     args: '-archivePath $(agent.buildDirectory)/rakBibi'
+
 - task: ArchiveFiles@2
   displayName: 'Package .xcarchive into a zip file'
   inputs:

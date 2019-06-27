@@ -8,6 +8,7 @@ variables:
   scheme: 'rakBibi'
   sdk: 'iphoneos'
   configuration: 'Release'
+  exportTeamId: M5H46J4YP8
 
 steps:
 - task: Xcode@5
@@ -18,4 +19,4 @@ steps:
     xcodeVersion: 'default' # Options: default, 10, 9, 8, specifyPath
     exportPath: '$(agent.buildDirectory)/output/$(sdk)/$(configuration)'
     packageApp: true
-    exportTeamId: M5H46J4YP8
+    exportTeamId: '$(exportTeamId)'

@@ -22,5 +22,5 @@ steps:
         "password": "Welc0me11"
       }'
     urlSuffix: 'rest/client/login' # Optional
-    waitForCompletion: 'true' # Options: true, false
+    waitForCompletion: 'false' # Options: true, false
     successCriteria: 200 # Optional

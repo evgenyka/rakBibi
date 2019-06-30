@@ -1,40 +1,66 @@
+
 trigger:
 - master
 
-pool:
-  vmImage: 'macOS-10.13'
+jobs:
+  - job: 'iOSbuild'
+    pool: 
+      vmImage: 'macOS-10.13'
+    displayName: 'Build IPA file'
+    variables:
+      scheme: 'rakBibi'
+      sdk: 'iphoneos'
+      configuration: 'Release'
+      teamId: M5H46J4YP8
+    steps:
+      - task: InstallAppleCertificate@2
+        inputs:
+          certSecureFile: 'evgeny.karasik@gmail.com_cert.p12'
+          #certPwd: $(P12Password)
 
-variables:
-  scheme: 'rakBibi'
-  sdk: 'iphoneos'
-  configuration: 'Release'
-  teamId: M5H46J4YP8
+      - task: InstallAppleProvisioningProfile@1
+        inputs:
+          provProfileSecureFile: 'evgeny.karasik.mobileprovision'
 
-steps:
-- task: InstallAppleCertificate@2
-  inputs:
-    certSecureFile: 'evgeny.karasik@gmail.com_cert.p12'
-    #certPwd: $(P12Password)
+      - task: Xcode@5
+        inputs:
+          sdk: '$(sdk)'
+          scheme: '$(scheme)'
+          configuration: '$(configuration)'
+          xcodeVersion: 'default' # Options: default, 10, 9, 8, specifyPath
+          exportPath: '$(agent.buildDirectory)/output/$(sdk)/$(configuration)'
+          archivePath: '$(Build.ArtifactStagingDirectory)/deploy'
+          packageApp: true
+          exportTeamId: $(teamId)
+          exportOptions: 'specify'
+          exportMethod: 'development'
+          #signingOption: 'nosign'
 
-- task: InstallAppleProvisioningProfile@1
-  inputs:
-    provProfileSecureFile: 'evgeny.karasik.mobileprovision'
+      - task: PublishBuildArtifacts@1
+        inputs:
+          pathToPublish: '$(agent.buildDirectory)/output/$(sdk)/$(configuration)/rakBibi.ipa'
+          artifactName: 'rakBibi'
 
-- task: Xcode@5
-  inputs:
-    sdk: '$(sdk)'
-    scheme: '$(scheme)'
-    configuration: '$(configuration)'
-    xcodeVersion: 'default' # Options: default, 10, 9, 8, specifyPath
-    exportPath: '$(agent.buildDirectory)/output/$(sdk)/$(configuration)'
-    archivePath: '$(Build.ArtifactStagingDirectory)/deploy'
-    packageApp: true
-    exportTeamId: $(teamId)
-    exportOptions: 'specify'
-    exportMethod: 'development'
-    #signingOption: 'nosign'
 
-- task: PublishBuildArtifacts@1
-  inputs:
-    pathToPublish: '$(agent.buildDirectory)/output/$(sdk)/$(configuration)/rakBibi.ipa'
-    artifactName: 'rakBibi'
+  - job: 'uploadArtifact'
+    displayName: 'Upload IPA file to MC server'
+    pool: server
+    steps:
+    - task: DownloadPipelineArtifact@2
+      inputs:
+        artifact: rakBibi
+    - task: InvokeRESTAPI@1
+      inputs:
+        connectionType: 'connectedServiceName'
+        serviceConnection: 'MC-Demo'
+        method: 'POST' # Options: OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, PATCH
+        headers: '{
+          "Content-Type":"application/json", 
+          }'
+        body: '{
+            "name": "karasik@microfocus.com",
+            "password": "Welc0me11"
+          }'
+        urlSuffix: 'rest/client/login' # Optional
+        waitForCompletion: 'false' # Options: true, false
+        successCriteria: 200 # Optional

@@ -13,6 +13,7 @@ jobs:
       configuration: 'Release'
       teamId: M5H46J4YP8
     steps:
+
       - task: InstallAppleCertificate@2
         inputs:
           certSecureFile: 'evgeny.karasik@gmail.com_cert.p12'
@@ -55,34 +56,30 @@ jobs:
           script: 
             '
             import sys,json, requests
-            FILE = sys.argv[1]
-            
-            BASE_URL = "http://demo.mobilcenter.io:8080/rest"
+
             s = requests.Session() 
             # LOGIN 
-            url = BASE_URL + "/client/login" 
             headers = {"Accept": "application/json" , "Content-Type": "application/json; charset=UTF-8"} 
             payload = {"name": "karasik@microfocus.com" , "password": "Welc0me11" , "accountName": "default"} 
-            response = s.post(url, headers=headers, data=json.dumps(payload)) 
+            response = s.post("http://demo.mobilcenter.io:8080/rest/client/login", headers=headers, data=json.dumps(payload)) 
             print ("Connect: ", response.status_code)
             
             hp4msecret = response.headers["x-hp4msecret"] 
             jsession = s.cookies["JSESSIONID"]
-            
-            
+                     
             if response.status_code == requests.codes.ok: 
             # UPLOAD APP 
-                url = BASE_URL + "/apps" 
-                file = {"fileUpload": open(FILE, "rb")} 
+                file = {"fileUpload": open($(agent.buildDirectory)/output/$(sdk)/$(configuration)/rakBibi.ipa, "rb")} 
                 headers = {"x-hp4msecret": hp4msecret, "JSESSIONID": jsession} 
-                response = s.post(url, headers=headers, files=file) 
+                response = s.post("http://demo.mobilcenter.io:8080/rest/apps", headers=headers, files=file) 
                 print ("Upload: ", response.status_code) 
             
             if response.status_code == requests.codes.ok: 
                 print ("App Name:", response.json()["name"]) 
                 print ("App Id:", response.json()["id"]) 
                 print ("App version:", response.json()["version"]) 
-                print ("App Count:", response.json()["count"])'
+                print ("App Count:", response.json()["count"])
+            '
 
 
 

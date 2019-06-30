@@ -64,7 +64,7 @@ jobs:
             response = s.post("http://demo.mobilcenter.io:8080/rest/client/login", headers=headers, data=json.dumps(payload)) 
             print ("Connect: ", response.status_code)
             
-            hp4msecret = response.headers["x-hp4msecret"] 
+            hp4msecret = response.headers["x-hp4msecret"]
             jsession = s.cookies["JSESSIONID"]
                      
             if response.status_code == requests.codes.ok: 

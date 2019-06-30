@@ -46,7 +46,7 @@ jobs:
         inputs:
           targetType: 'inline'
           script:
-                #python -m pip install --upgrade pip      
+                #python -m pip install --upgrade pip requests
                 pip install requests    
 
       - task: PythonScript@0

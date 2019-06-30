@@ -41,7 +41,6 @@ jobs:
           pathToPublish: '$(agent.buildDirectory)/output/$(sdk)/$(configuration)/rakBibi.ipa'
           artifactName: 'rakBibi'
 
-
   - job: 'uploadArtifact'
     displayName: 'Upload IPA file to MC server'
     pool: server
@@ -53,7 +52,7 @@ jobs:
       inputs:
         connectionType: 'connectedServiceName'
         serviceConnection: 'MC-Demo'
-        method: 'POST' # Options: OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, PATCH
+        method: 'POST'
         headers: '{
           "Content-Type":"application/json", 
           }'

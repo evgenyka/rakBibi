@@ -33,9 +33,9 @@ jobs:
           archivePath: '$(Build.ArtifactStagingDirectory)/deploy'
           packageApp: true
           exportTeamId: $(teamId)
-          exportOptions: 'auto'
-          #exportMethod: 'development'
-          signingOption: 'auto'
+          exportOptions: 'specify'
+          exportMethod: 'development'
+          #signingOption: 'auto'
 
       - task: PublishBuildArtifacts@1
         inputs:

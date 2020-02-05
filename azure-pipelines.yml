@@ -33,7 +33,7 @@ steps:
       {
         "files": [
           {
-            "pattern": "*",
+            "pattern": "*.ipa",
             "target": "$(agent.buildDirectory)/output/$(sdk)/$(configuration)"
           }
         ]

@@ -23,6 +23,7 @@ steps:
     configuration: '$(configuration)'
     xcodeVersion: 'default' # Options: default, 10, 9, 8, specifyPath
     exportPath: '$(agent.buildDirectory)/output/$(sdk)/$(configuration)'
+    ipaPath: '$(SDK)/$(Configuration)/build.sym/$(Configuration)-$(SDK)/output' 
     packageApp: false
 
 - task: ArtifactoryGenericUpload@1
@@ -33,8 +34,8 @@ steps:
       {
         "files": [
           {
-            "pattern": "*.ipa",
-            "target": "$(agent.buildDirectory)/output/$(sdk)/$(configuration)"
+            "pattern": "*",
+            "target": "$(SDK)/$(Configuration)/build.sym/$(Configuration)-$(SDK)/output"
           }
         ]
       }

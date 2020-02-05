@@ -24,9 +24,18 @@ steps:
     xcodeVersion: 'default' # Options: default, 10, 9, 8, specifyPath
     exportPath: '$(agent.buildDirectory)/output/$(sdk)/$(configuration)'
     packageApp: false
-    
-- task: ArtifactoryPublishBuildInfo@1
+
+- task: ArtifactoryGenericUpload@1
   inputs:
     artifactoryService: 'Artifactory-saas'
-    buildName: '$(Build.DefinitionName)'
-    buildNumber: '$(Build.BuildNumber)'
+    specSource: 'taskConfiguration'
+    fileSpec: |
+      {
+        "files": [
+          {
+            "pattern": "*",
+            "target": "$(agent.buildDirectory)/output/$(sdk)/$(configuration)"
+          }
+        ]
+      }
+    failNoOp: true

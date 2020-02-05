@@ -26,17 +26,3 @@ steps:
     ipaPath: '$(SDK)/$(Configuration)/build.sym/$(Configuration)-$(SDK)/output' 
     packageApp: false
 
-- task: ArtifactoryGenericUpload@1
-  inputs:
-    artifactoryService: 'Artifactory-saas'
-    specSource: 'taskConfiguration'
-    fileSpec: |
-      {
-        "files": [
-          {
-            "pattern": "*",
-            "target": "$(SDK)/$(Configuration)/build.sym/$(Configuration)-$(SDK)/output"
-          }
-        ]
-      }
-    failNoOp: true

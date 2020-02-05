@@ -9,18 +9,17 @@ trigger:
 pool:
   vmImage: 'macos-latest'
 
+variables:
+  scheme: ''
+  sdk: 'iphoneos'
+  configuration: 'Release'
+
 steps:
-- task: InvokeRESTAPI@1
+- task: Xcode@5
   inputs:
-    connectionType: 'connectedServiceName'
-    serviceConnection: 'MC-Demo'
-    method: 'POST'
-    headers: '{
-      "Content-Type":"application/json", 
-      }'
-    body: '{
-        "name": "karasik@microfocus.com",
-        "password": "Welc0me11"
-      }'
-    urlSuffix: '/rest/client/login'
-    waitForCompletion: 'false'
+    sdk: '$(sdk)'
+    scheme: '$(scheme)'
+    configuration: '$(configuration)'
+    xcodeVersion: 'default' # Options: default, 10, 9, 8, specifyPath
+    exportPath: '$(agent.buildDirectory)/output/$(sdk)/$(configuration)'
+    packageApp: false

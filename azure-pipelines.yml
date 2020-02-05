@@ -22,10 +22,15 @@ steps:
     scheme: '$(scheme)'
     configuration: '$(configuration)'
     xcodeVersion: 'default' # Options: default, 10, 9, 8, specifyPath
-    exportPath: '$(agent.buildDirectory)/output/$(sdk)/$(configuration)'
-    ipaPath: '$(SDK)/$(Configuration)/build.sym/$(Configuration)-$(SDK)/output' 
     packageApp: false
 
+- task: CopyFiles@2
+  inputs:
+    contents: '**/*.ipa'
+    targetFolder: '$(build.artifactStagingDirectory)'
+    overWrite: true
 - task: PublishBuildArtifacts@1
   inputs:
-    pathtoPublish: '$(SDK)/$(Configuration)/build.sym/$(Configuration)-$(SDK)/output'
+    pathtoPublish: '$(build.artifactStagingDirectory)/output/$(sdk)/$(configuration)' 
+    artifactName: 'drop' 
+    publishLocation: 'Container'

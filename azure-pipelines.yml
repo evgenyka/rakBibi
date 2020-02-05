@@ -10,7 +10,7 @@ pool:
   vmImage: 'macos-latest'
 
 variables:
-  scheme: ''
+  scheme: 'rakBibi'
   sdk: 'iphoneos'
   configuration: 'Release'
 
